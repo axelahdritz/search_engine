@@ -213,7 +213,7 @@ There are two steps:
 
 1. Edit this README file to contain the RUM query you created above right here:
     ```
-    CREATE INDEX ...
+    CREATE INDEX metahtml_content_idx ON public.metahtml USING rum (content);
     ```
 
 1. Edit this README file with the results of the following queries in psql.
@@ -222,16 +222,129 @@ There are two steps:
     1. This query shows the total number of webpages loaded:
        ```
        select count(*) from metahtml;
+
+         count
+       ---------
+        277188
        ```
 
     1. This query shows the number of webpages loaded / hour:
        ```
        select * from metahtml_rollup_insert order by insert_hour desc limit 100;
+
+       hll_count |  url   | hostpathquery | hostpath |  host  |      insert_hour
+       ----+--------+---------------+----------+--------+------------------------
+         5 | 105807 |        104449 |    95372 |  61717 | 2022-05-10 11:00:00+00
+         5 | 167995 |        166667 |   152977 | 100246 | 2022-05-10 10:00:00+00
        ```
 
     1. This query shows the hostnames that you have downloaded the most webpages from:
        ```
        select * from metahtml_rollup_host order by hostpath desc limit 100;
+
+                 url | hostpathquery | hostpath |            host             
+        -----+---------------+----------+-----------------------------
+         109 |           109 |      109 | com,agoda)
+          91 |            91 |       91 | org,worldcat)
+          88 |            88 |       88 | org,wikipedia,en)
+          84 |            84 |       84 | com,popsugar)
+         111 |           111 |       78 | com,mlb)
+          75 |            75 |       75 | com,theguardian)
+          74 |            74 |       74 | com,gamefaqs)
+          72 |            72 |       72 | com,dollartree)
+          71 |            71 |       71 | com,wowprogress)
+          66 |            66 |       66 | com,tripadvisor)
+          63 |            63 |       63 | com,dreamstime)
+          61 |            61 |       61 | org,metoperashop)
+          60 |            60 |       60 | com,cricketarchive)
+          60 |            60 |       60 | com,pandora)
+          80 |            80 |       60 | com,bloomberg)
+          59 |            59 |       59 | com,cfbstats)
+          58 |            58 |       58 | com,twopeasinabucket)
+          59 |            59 |       58 | com,zappos)
+          58 |            58 |       58 | com,economist)
+          61 |            61 |       57 | com,stackoverflow)
+          57 |            57 |       57 | net,worldcosplay)
+          56 |            56 |       56 | com,oracle,docs)
+          56 |            56 |       56 | com,grouprecipes)
+          55 |            55 |       55 | es,tripadvisor)
+          58 |            58 |       55 | gov,clinicaltrials)
+          57 |            57 |       55 | com,imdb)
+          55 |            55 |       55 | org,wikipedia,it)
+          55 |            55 |       55 | dk,tripadvisor)
+          55 |            55 |       55 | gov,loc,chroniclingamerica)
+          54 |            54 |       54 | com,engadget)
+          54 |            54 |       54 | org,w3,lists)
+          63 |            63 |       54 | com,snagajob)
+          70 |            70 |       54 | com,atgstores)
+          54 |            54 |       54 | ve,com,tripadvisor)
+          54 |            54 |       54 | com,thestreet)
+          58 |            58 |       53 | org,marylandpublicschools)
+          53 |            53 |       53 | com,tylerpaper)
+          53 |            53 |       53 | com,accuweather)
+          52 |            52 |       52 | com,sporcle)
+          52 |            52 |       52 | de,tripadvisor)
+          55 |            55 |       52 | com,hockeyfights)
+          52 |            52 |       52 | com,britannica)
+          52 |            52 |       52 | com,basspro)
+          52 |            52 |       52 | mx,com,tripadvisor)
+          52 |            52 |       52 | com,packersproshop)
+          51 |            51 |       51 | com,6pm)
+          51 |            51 |       51 | com,pond5)
+          51 |            51 |       51 | com,tripadvisor,th)
+          51 |            51 |       51 | net,slideshare)
+          50 |            50 |       50 | ru,tripadvisor)
+          51 |            51 |       50 | com,iheart)
+          50 |            50 |       50 | com,scribdassets,imgv2-3)
+          49 |            49 |       49 | fr,tripadvisor)
+          49 |            49 |       49 | org,votesmart)
+          50 |            50 |       49 | com,go,abcnews)
+          55 |            55 |       49 | com,dpreview)
+          49 |            49 |       49 | com,bleacherreport)
+          49 |            49 |       49 | com,upi)
+          49 |            49 |       49 | com,sandiegouniontribune)
+          49 |            49 |       49 | uk,co,theregister)
+          52 |            52 |       48 | com,phonearena)
+          53 |            52 |       48 | com,ihg)
+          48 |            48 |       48 | com,society6)
+          48 |            48 |       48 | com,ebaumsworld)
+          48 |            48 |       48 | com,justjared)
+          53 |            53 |       47 | com,heraldnet)
+          47 |            47 |       47 | com,oyster)
+          47 |            47 |       47 | com,tripadvisor,no)
+          47 |            47 |       47 | com,sherdog)
+          46 |            46 |       46 | org,bio-medicine)
+          47 |            47 |       46 | com,iherb)
+          46 |            46 |       46 | com,pianoworld)
+          46 |            46 |       46 | com,moultrienews)
+          46 |            46 |       46 | org,bbb)
+          45 |            45 |       45 | com,gameboomers)
+          45 |            45 |       45 | com,babycenter,community)
+          45 |            45 |       45 | com,travelpod)
+          54 |            54 |       45 | com,beeradvocate)
+          45 |            45 |       45 | com,grainger)
+          46 |            45 |       45 | com,nj)
+          45 |            45 |       45 | org,wikipedia,pt)
+          44 |            44 |       44 | edu,cornell,law)
+          45 |            45 |       44 | com,golfsmith)
+          45 |            45 |       44 | com,nymag)
+          46 |            46 |       43 | com,businessinsider)
+          43 |            43 |       43 | org,wikipedia,pl)
+          63 |            63 |       43 | com,cnet)
+          43 |            43 |       43 | org,wikipedia,es)
+          42 |            42 |       42 | com,scribdassets,imgv2-2)
+          42 |            42 |       42 | com,gawker)
+          42 |            42 |       42 | gov,delaware,courts)
+          42 |            42 |       42 | com,tripadvisor,pl)
+          42 |            42 |       42 | cl,tripadvisor)
+          43 |            43 |       42 | com,jpcycles)
+          43 |            43 |       42 | com,gilt)
+          42 |            42 |       42 | org,openjurist)
+          42 |            42 |       42 | com,myfitnesspal)
+          42 |            42 |       42 | com,4shared)
+          42 |            42 |       42 | net,audiojungle)
+          42 |            42 |       42 | net,bio)
+
        ```
 
 1. Take a screenshot of an interesting search result.
