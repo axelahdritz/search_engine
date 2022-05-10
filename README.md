@@ -350,8 +350,10 @@ There are two steps:
 1. Take a screenshot of an interesting search result.
    Ensure that the timer on the bottom of the webpage is included in the screenshot.
    Add the screenshot to your git repo, and modify the `<img>` tag below to point to the screenshot.
-
+   
    <img src='screenshot.png' />
+    
+   In the screenshot above, you see a discussion of the SARS coronavirus in 2006 (one of the dates I chose) and then again in 2020!
 
 1. Commit and push your changes to github.
 
