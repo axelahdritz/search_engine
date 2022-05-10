@@ -353,7 +353,7 @@ There are two steps:
    
    <img src='screenshot.png' />
     
-   In the screenshot above, you see a discussion of the SARS coronavirus in 2006 (one of the dates I chose) and then again in 2020!
+   In the screenshot above, you see a discussion of the SARS coronavirus in 2006 (one of the dates I chose) and then again for COVID-19 in 2020.
 
 1. Commit and push your changes to github.
 
